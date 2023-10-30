@@ -10,12 +10,13 @@ import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./routes/firebase";
 import ProtectedRoute from "./components/protected-route";
+import SendPwdResetEmail from "./routes/send-pwd-reset-email";
 const Wrapper = styled.div`
   display: flex;
   height: 100vh;
   align-items: center;
   justify-content: center;
-`
+`;
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const init = async () => {
@@ -29,7 +30,11 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <ProtectedRoute><Layout /></ProtectedRoute>,
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: "",
@@ -49,14 +54,34 @@ function App() {
       path: "/create-acount",
       element: <CreateAcount />,
     },
+    {
+      path: "/send-pwd-resetEmail",
+      element: <SendPwdResetEmail />,
+    },
   ]);
   const GlobalStyles = createGlobalStyle`
   ${reset};
   *{box-sizing:border-box}
+
   body{
-    background-color:#000;
-    color:#fff;
-    font-family:system-ui
+    background-color:#fff;
+    color:#222;
+    font-family:system-ui;
+      /* 아래의 모든 코드는 영역::코드로 사용 */
+  ::-webkit-scrollbar {
+    width: 6px;  /* 스크롤바의 너비 */ 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #1d9bf0; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(212, 212, 212, 0.27);  
+  }
   }
   `;
   return (

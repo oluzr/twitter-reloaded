@@ -21,25 +21,22 @@ export const Form = styled.form`
 export const Input = styled.input`
   padding: 10px 20px;
   border-radius: 50px;
+  border: 1px solid #eee;
   width: 100%;
   font-size: 16px;
-  &:not([type="submit"]) {
-    border: 1px solid #eee;
-  }
+  &:not(){}
   &[type="submit"] {
     cursor: pointer;
     &:hover {
       opacity: 0.8;
     }
-    border: none;
-    background-color: #1d9bf0;
-    color: #fff;
+
   }
-  &[disabled] {
+  &[disabled]{
     background-color: #ddd;
     color: #000;
   }
-  &.checked {
+  &.checked{
     background-color: #1d9bf0;
     color: #fff;
   }

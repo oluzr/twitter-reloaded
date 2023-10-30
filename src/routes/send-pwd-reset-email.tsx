@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { auth } from "./firebase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import {
   Wrapper,
   Title,
@@ -11,32 +11,29 @@ import {
   Error,
   Switcher,
 } from "../components/auth-component";
-import GithubButton from "../components/github-btn";
 
-const Login = () => {
-  const navigate = useNavigate();
+const SendPwdResetEmail = () => {
   const [isLoading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [sendingEmailSuccess, setSendingEmailSuccess] = useState(false);
   const [error, setError] = useState("");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = e;
-    if (name === "password") {
-      setPassword(value);
-    } else if (name === "email") {
+    if (name === "email") {
       setEmail(value);
     }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
-    if (isLoading || email === "" || password === "") return;
+    if (isLoading || email === "" || sendingEmailSuccess) return;
+    setSendingEmailSuccess(false)
     try {
       setLoading(true);
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+      await sendPasswordResetEmail(auth, email);
+      setSendingEmailSuccess(true)
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);
@@ -48,7 +45,7 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <Title>Log into X</Title>
+      <Title>Reset password</Title>
       <Form onSubmit={onSubmit}>
         <Input
           name="email"
@@ -56,29 +53,28 @@ const Login = () => {
           type="text"
           onChange={onChange}
           required
+          disabled={sendingEmailSuccess}
+          value={email}
+          
         />
         <Input
-          name="password"
-          placeholder="Password"
-          type="password"
-          onChange={onChange}
-          required
+          className={sendingEmailSuccess?'checked':''}
+          type="submit"
+          value={
+            sendingEmailSuccess
+              ? "Check your Email !"
+              : isLoading
+              ? "Sending..."
+              : "Send"
+          }
         />
-        <Input type="submit" value={isLoading ? "isLoading..." : "Log in"} />
       </Form>
       {error !== "" ? <Error>{error}</Error> : null}
       <Switcher>
-        Don't have an account?{" "}
-        <Link to="/create-acount">Create one &rarr;</Link>
+        Back to <Link to="/login">login &rarr;</Link>
       </Switcher>
-      <Switcher>
-        Did you forgot your password?{" "}
-        <Link to="/send-pwd-resetEmail">find &rarr;</Link>
-      </Switcher>
-
-      <GithubButton />
     </Wrapper>
   );
 };
 
-export default Login;
+export default SendPwdResetEmail;
