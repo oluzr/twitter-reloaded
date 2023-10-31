@@ -3,7 +3,14 @@ import React, { useState } from "react";
 import { auth } from "./firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-import { Wrapper, Title, Form, Input, Error, Switcher } from "../components/auth-component";
+import {
+  Wrapper,
+  Title,
+  Form,
+  Input,
+  Error,
+  Switcher,
+} from "../components/auth-component";
 import GithubButton from "../components/github-btn";
 
 const CreateAcount = () => {
@@ -36,15 +43,14 @@ const CreateAcount = () => {
         email,
         password
       );
-      console.log(credentials.user);
       await updateProfile(credentials.user, {
         displayName: name,
       });
+
       navigate("/");
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e.message);
-        // console.log(e.code, e.message);
       }
     } finally {
       setLoading(false);
@@ -52,18 +58,18 @@ const CreateAcount = () => {
   };
   return (
     <Wrapper>
-      <Title>Join into X</Title>
+      <Title>Join into 🍅</Title>
       <Form onSubmit={onSubmit}>
         <Input
           name="name"
-          placeholder="Name"
+          placeholder="Nickname"
           type="text"
           onChange={onChange}
           required
         />
         <Input
           name="email"
-          placeholder="Eame"
+          placeholder="Email"
           type="text"
           onChange={onChange}
           required

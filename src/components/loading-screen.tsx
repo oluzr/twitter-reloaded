@@ -4,15 +4,18 @@ const Wrapper = styled.div`
   display:flex;
   justify-content: center;
   align-items: center;
+  background-color: #ffffff;
+  width: 100vw;
 `;
 const Text = styled.span`
-font-size: 24px;
+font-size: 7rem;
+
   
 `
 const LoadingScreen = () => {
   return (
     <Wrapper>
-      <Text>Loading</Text>
+      <Text>🍅</Text>
     </Wrapper>
   );
 };

@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <Wrapper>
-      <Title>Log into X</Title>
+      <Title>Log into 🍅</Title>
       <Form onSubmit={onSubmit}>
         <Input
           name="email"

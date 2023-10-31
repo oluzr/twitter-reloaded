@@ -7,6 +7,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 15px;
 `;
 const TextArea = styled.textarea`
   border: 2px solid #fff;
@@ -27,15 +28,15 @@ const TextArea = styled.textarea`
   }
   &:focus {
     outline: none;
-    border-color: #1d9bf0;
+    border-color: tomato;
   }
 `;
 const AttachFileButton = styled.label`
   padding: 10px 0;
-  color: #1d9bf0;
+  color: tomato;
   text-align: center;
   border-radius: 20px;
-  border: 1px solid #1d9bf0;
+  border: 1px solid tomato;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -44,7 +45,7 @@ const AttacnFileInput = styled.input`
   display: none;
 `;
 const SubmitBtn = styled.input`
-  background-color: #1d9bf0;
+  background-color: tomato;
   color: #fff;
   border: none;
   padding: 10px 0;
@@ -56,7 +57,7 @@ const SubmitBtn = styled.input`
     opacity: 0.89;
   }
 `;
-const IMAGE_MAX_SIZE = 1024 * 1024; //* 1MB 사이즈 제한
+const IMAGE_MAX_SIZE = 10 * 1024 * 1024; //* 10MB 사이즈 제한
 const PostTweetForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState("");
@@ -69,15 +70,13 @@ const PostTweetForm = () => {
     if (files && files.length === 1 && files[0].size <= IMAGE_MAX_SIZE) {
       setFile(files[0]);
     } else {
-      alert('1MB 용량 이하의 이미지 파일 1개만 업로드 가능합니다')
+      alert("1MB 용량 이하의 이미지 파일 1개만 업로드 가능합니다");
     }
-    
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
     if (!user || isLoading || tweet === "" || tweet.length > 180) return;
-
     try {
       setLoading(true);
       const doc = await addDoc(collection(db, "tweets"), {
@@ -87,18 +86,15 @@ const PostTweetForm = () => {
         userId: user.uid,
       });
       if (file) {
-        const locationRef = ref(
-          storage,
-          `tweets/${user.uid}/${doc.id}`
-        );
+        const locationRef = ref(storage, `tweets/${user.uid}/${doc.id}`);
         const result = await uploadBytes(locationRef, file);
         const url = await getDownloadURL(result.ref);
         await updateDoc(doc, {
           photo: url,
         });
       }
-      setTweet('')
-      setFile(null)
+      setTweet("");
+      setFile(null);
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,6 +1,5 @@
 import {
   collection,
-  //getDocs,
   limit,
   onSnapshot,
   orderBy,
@@ -19,17 +18,21 @@ export interface iTweet {
   userId: string;
   username: string;
   createdAt: number;
+  photoURL?: string;
+  avatarUrl?: string;
 }
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
   flex-direction: column;
   overflow-y: auto;
-  padding-right: 10px;
+  @media only screen and (max-width: 600px) {
+    gap: 0;
+  }
 `;
 const Timeline = () => {
   const [tweets, setTweets] = useState<iTweet[]>([]);
-
+  
   useEffect(() => {
     let unsubscribe: Unsubscribe | null = null;
     const fetchTweets = async () => {
@@ -53,6 +56,7 @@ const Timeline = () => {
       unsubscribe = await onSnapshot(tweetsQuery, (snapshot) => {
         const tweets = snapshot.docs.map((doc) => {
           const { tweet, createdAt, username, userId, photo } = doc.data();
+
           return {
             id: doc.id,
             photo,
@@ -60,6 +64,7 @@ const Timeline = () => {
             userId,
             username,
             createdAt,
+            
           };
         });
         setTweets(tweets);

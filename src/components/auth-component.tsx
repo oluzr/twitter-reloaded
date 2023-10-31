@@ -37,7 +37,7 @@ export const Input = styled.input`
     color: #000;
   }
   &.checked{
-    background-color: #1d9bf0;
+    background-color: tomato;
     color: #fff;
   }
 `;

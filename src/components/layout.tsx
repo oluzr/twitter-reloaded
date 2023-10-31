@@ -9,44 +9,106 @@ const Wrapper = styled.div`
   gap: 20px;
   width: 100%;
   max-width: 860px;
+  @media only screen and (max-width: 600px) {
+    display: block;
+    padding: 0;
+  }
 `;
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  @media only screen and (max-width: 600px) {
+    position: sticky;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: tomato;
+    padding: 15px 0;
+  }
 `;
 const MenuItem = styled.div`
   cursor: pointer;
   display: flex;
   align-content: center;
   justify-content: center;
-  border: 2px solid #1d9bf0;
+  border: 2px solid gray;
   height: 50px;
   width: 50px;
+  padding: 5px;
   border-radius: 50%;
-  svg{
-    width: 30px;
-    fill: #1d9bf0;
+  svg {
+    width: 100%;
+    fill: gray;
   }
-  &.logout{
+  &.logout {
     border-color: tomato;
-    svg{
+    svg {
       fill: tomato;
     }
+  }
+  @media only screen and (max-width: 600px) {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-color: #fff;
+    svg {
+      fill: #fff;
+      width: 100%;
     }
-`;
-const Layout = () => {
-  const navigate = useNavigate()
-  const onLogout =async () => {
-    const ok = confirm('are you sure you want to log out?')
-    if (ok) {
-      await auth.signOut()
-      navigate('/login')
+    &.logout {
+      border-color: #fff;
+      svg {
+        fill: #fff;
+      }
     }
   }
+`;
+const BgIcon = styled.span`
+  position: fixed;
+  display: none;
+  font-size: 15rem;
+  z-index: -1;
+  top: 4%;
+  right: 10%;
+  transform: rotate(-10deg);
+  opacity: calc(.5);
+  &:nth-child(2) {
+    font-size: 20rem;
+    bottom: 0%;
+    top: unset;
+    left: 0;
+    transform: rotate(20deg) translateX(-110px);
+  }
+  &:nth-child(3) {
+    font-size: 20rem;
+    bottom: 2%;
+    top: unset;
+    right: 30px;
+    transform: rotate(-50deg) translateX(-20px);
+  }
+`;
+const Layout = () => {
+  const navigate = useNavigate();
+  const onLogout = async () => {
+    const ok = confirm("are you sure you want to log out?");
+    if (ok) {
+      await auth.signOut();
+      navigate("/login");
+    }
+  };
   return (
     <Wrapper>
+      <BgIcon>🍅</BgIcon>
+      <BgIcon>🍅</BgIcon>
+      <BgIcon>🥦</BgIcon>
       <Menu>
         <Link to={"/"}>
           <MenuItem>

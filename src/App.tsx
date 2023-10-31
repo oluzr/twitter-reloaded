@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   height: 100vh;
   align-items: center;
   justify-content: center;
+
 `;
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -69,18 +70,34 @@ function App() {
     font-family:system-ui;
       /* 아래의 모든 코드는 영역::코드로 사용 */
   ::-webkit-scrollbar {
-    width: 6px;  /* 스크롤바의 너비 */ 
+    width: 4px;  /* 스크롤바의 너비 */ 
   }
 
   ::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
-    background: #1d9bf0; /* 스크롤바의 색상 */
-    
+    background: #6666665f; /* 스크롤바의 색상 */
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(212, 212, 212, 0.27);  
+    background: rgba(212, 212, 212, 0.226);  
+  }
+  textarea{
+    font-family:system-ui;
+    font-size: 15px;
+    line-height: 1.2;
+    background-color: #f9f9f9;
+    /* flex: 1; */
+    resize: none;
+    padding: 5px 7px;
+    border: none;
+    border-radius: 3px;
+    &[readOnly] {
+      padding: 0;
+      cursor: default;
+      outline: none;
+      background-color: transparent;
+    }
   }
   }
   `;

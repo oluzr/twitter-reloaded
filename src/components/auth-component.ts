@@ -1,6 +1,9 @@
 import { styled } from "styled-components";
 
 export const Wrapper = styled.div`
+  @media only screen and (max-width: 600px) {
+    padding: 0 10px;
+  }
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -10,6 +13,9 @@ export const Wrapper = styled.div`
 `;
 export const Title = styled.h1`
   font-size: 42px;
+  color: #333;
+  font-weight: 300;
+  padding-top: 2em;
 `;
 export const Form = styled.form`
   margin-top: 50px;
@@ -17,6 +23,7 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  padding: 10px;
 `;
 export const Input = styled.input`
   padding: 10px 20px;
@@ -32,7 +39,7 @@ export const Input = styled.input`
       opacity: 0.8;
     }
     border: none;
-    background-color: #1d9bf0;
+    background-color: tomato;
     color: #fff;
   }
   &[disabled] {
@@ -40,7 +47,7 @@ export const Input = styled.input`
     color: #000;
   }
   &.checked {
-    background-color: #1d9bf0;
+    background-color: tomato;
     color: #fff;
   }
 `;
@@ -61,6 +68,6 @@ export const Error = styled.span`
 export const Switcher = styled.span`
   margin-top: 20px;
   a {
-    color: #1d9bf0;
+    color: tomato;
   }
 `;
